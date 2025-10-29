@@ -2,8 +2,8 @@
 
 import Head from "next/head";
 import { Card, Carousel, Avatar, Button, Badge, Grid, Space } from "antd";
-import { cssBase, cssVar } from "../shared/ui/colors";
-import { useHomeStore } from "../store/useHomeStore";
+import { cssBase, cssVar } from "../../shared/ui/colors";
+import { useHomeStore } from "../../store/useHomeStore";
 import {
   AppstoreOutlined,
   RocketOutlined,
@@ -42,7 +42,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>동문서답</title>
+        <title>RAG 설명서 헬프센터</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
@@ -75,7 +75,7 @@ export default function HomePage() {
           }}
         >
           <Card
-            variant="borderless"
+            bordered={false}
             style={{
               borderRadius: "var(--radius-xl)",
               boxShadow: "var(--shadow-soft)",
@@ -84,9 +84,7 @@ export default function HomePage() {
                 100
               )}, ${cssVar("green", 100)})`,
             }}
-            styles={{
-              body: { padding: 0 },
-            }}
+            bodyStyle={{ padding: 0 }}
           >
             <div
               style={{
@@ -112,7 +110,7 @@ export default function HomePage() {
                       fontWeight: 700,
                     }}
                   >
-                    설명서 업로드 이벤트
+                    최신버전 앱 필수
                   </span>
                 </Badge>
                 <h1
@@ -124,7 +122,7 @@ export default function HomePage() {
                     color: "var(--color-black)",
                   }}
                 >
-                  설명서를 등록해주세요!!
+                  커피챗 노트 오픈 이벤트
                 </h1>
                 <p style={{ margin: 0, color: "var(--color-greyscale-600)" }}>
                   사용설명서를 RAG로 더 똑똑하게: 문서 업로드 → 챗봇 생성 → 팀
@@ -340,7 +338,7 @@ export default function HomePage() {
             gap: 8,
           }}
         >
-          {["홈", "검색", "설명서 채팅", "노트", "더보기"].map((t, i) => (
+          {["홈", "검색", "나의 큐베릿", "노트", "더보기"].map((t, i) => (
             <button
               key={t}
               style={{
