@@ -1,9 +1,10 @@
 "use client";
 
 import Head from "next/head";
+import Link from "next/link"; // <Link> 임포트
 import { Card, Carousel, Avatar, Button, Badge, Grid, Space } from "antd";
-import { cssBase, cssVar } from "../shared/ui/colors";
-import { useHomeStore } from "../store/useHomeStore";
+import { cssBase, cssVar } from "../shared/ui/colors"; // 경로는 실제 위치에 맞게 조정하세요
+import { useHomeStore } from "../store/useHomeStore"; // 경로는 실제 위치에 맞게 조정하세요
 import {
   AppstoreOutlined,
   RocketOutlined,
@@ -42,7 +43,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>동문서답</title>
+        <title>RAG 설명서 헬프센터</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
@@ -74,6 +75,7 @@ export default function HomePage() {
             )}, ${cssVar("blue", 300)})`,
           }}
         >
+          {/* ★ 1. Card 경고 수정: 'bordered', 'bodyStyle' 대신 'variant', 'styles.body' 사용 */}
           <Card
             variant="borderless"
             style={{
@@ -112,7 +114,7 @@ export default function HomePage() {
                       fontWeight: 700,
                     }}
                   >
-                    설명서 업로드 이벤트
+                    최신버전 앱 필수
                   </span>
                 </Badge>
                 <h1
@@ -124,7 +126,7 @@ export default function HomePage() {
                     color: "var(--color-black)",
                   }}
                 >
-                  설명서를 등록해주세요!!
+                  커피챗 노트 오픈 이벤트
                 </h1>
                 <p style={{ margin: 0, color: "var(--color-greyscale-600)" }}>
                   사용설명서를 RAG로 더 똑똑하게: 문서 업로드 → 챗봇 생성 → 팀
@@ -278,7 +280,7 @@ export default function HomePage() {
               {partners.map((p) => (
                 <Card
                   key={p.id}
-                  bordered={false}
+                  variant="borderless" // ★ 여기도 수정
                   style={{
                     borderRadius: 16,
                     background: "var(--color-white)",
@@ -326,6 +328,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ★ 2. <nav> 수정: 'legacyBehavior' 제거, <Link>에 직접 스타일 적용 */}
         <nav
           style={{
             position: "sticky",
@@ -340,21 +343,39 @@ export default function HomePage() {
             gap: 8,
           }}
         >
-          {["홈", "검색", "설명서 채팅", "노트", "더보기"].map((t, i) => (
-            <button
-              key={t}
-              style={{
-                height: 48,
-                border: "none",
-                background: "transparent",
-                color:
-                  i === 0 ? cssVar("blue", 700) : "var(--color-greyscale-500)",
-                fontWeight: i === 0 ? 700 : 500,
-              }}
-            >
-              {t}
-            </button>
-          ))}
+          {[
+            { href: "/", label: "홈" },
+            { href: "/search", label: "검색" },
+            { href: "/cuberit", label: "설명서 채팅" },
+            { href: "/note", label: "설명서 등록" },
+            { href: "/more", label: "더보기" },
+          ].map((item, i) => {
+            // '홈' 페이지이므로 '홈' 탭을 활성화합니다.
+            const isActive = item.href === "/";
+
+            return (
+              <Link
+                href={item.href}
+                key={item.label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 48,
+                  border: "none",
+                  background: "transparent",
+                  color: isActive
+                    ? cssVar("blue", 700)
+                    : "var(--color-greyscale-500)",
+                  fontWeight: isActive ? 700 : 500,
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </main>
     </>
